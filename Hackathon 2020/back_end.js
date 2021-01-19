@@ -31,7 +31,7 @@ function hovar(){
     var btn=document.getElementById("button");
     var file=document.getElementById("img").files[0];
 
-    if (phone.length!=10 || name.length==0 || email.indexOf('@')==-1 || org_number.length==0 || file.size==0){
+    if (phone.length!=10 || name.length==0 || email.indexOf('@')==-1 || org_number.length==0 || file.size==0 || email.indexOf('.')==-1 ){
         btn.style.backgroundColor="lightsalmon"
     }
     else{
@@ -40,27 +40,26 @@ function hovar(){
     }
 }
 
-
+function login(){
+    //if number exists in database, change content of button from 'Register' to `Login`
+}
 
 //After clicking button    
 var btn=document.getElementById("button");
 function submit(){
-if (getComputedStyle(btn).backgroundColor == "rgb(127, 255, 0)"){
-    var d = new Date();
-    d.setTime(d.getTime() + (2*60*1000));
-    var expires = "expires ="+ d.toUTCString();
-
-    
-        document.cookie="name =" + document.getElementById("name").value + ";" + expires + ";path=/";
-        document.cookie="ID No =" + document.getElementById("org_number").value + ";" + expires + ";path=/";
-        document.cookie="Mobile No =" + document.getElementById("ph_number").value + ";" + expires + ";path=/";
-        document.cookie="Email =" + document.getElementById("email").value + ";" + expires + ";path=/";
+    if (getComputedStyle(btn).backgroundColor == "rgb(127, 255, 0)"){
         var file = document.getElementById("img").files[0];
         const reader = new FileReader();
         reader.addEventListener("load", (event) => {
-            localStorage.setItem("Image", event.target.result);
+            //localStorage.setItem("image_name", event.target.fileName);
+            localStorage.setItem("image", event.target.result);
+            localStorage.setItem("img", document.getElementById("img").files[0].name);
+            localStorage.setItem("name", document.getElementById("name").value);
+            localStorage.setItem("id", document.getElementById("org_number").value);
+            localStorage.setItem("contact", document.getElementById("ph_number").value);
+            localStorage.setItem("email", document.getElementById("email").value);
             window.location.href = "preview.html";
         });
         reader.readAsDataURL(file);
-        }
+    }
 }
