@@ -1,39 +1,41 @@
-var arr=document.cookie.split(';')
-for(var i=0; i<arr.length; i++){
-
-    var c=arr[i].split('=');
-    if (c[0].trim()=='name'){
-        document.getElementById('name_1').innerHTML=decodeURIComponent(c[1])
-    }
-    else if(c[0].trim()=='ID No'){
-        document.getElementById('org_number_1').innerHTML=decodeURIComponent(c[1])
-    }
-    else if(c[0].trim()=='Mobile No'){
-        document.getElementById('ph_number_1').innerHTML=decodeURIComponent(c[1])
-    }
-    else if(c[0].trim()=='Email'){
-        document.getElementById('email_1').innerHTML=decodeURIComponent(c[1])
-    }
+document.getElementById("go").addEventListener('click',submit);
+function submit(){
+    const dForm = document.getElementById('details');          
+    dForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        fetch("database_registration.php",{
+        method: "post",
+        body:JSON.stringify({'name': localStorage.getItem("name"),
+                            'contact': localStorage.getItem("contact"),
+                            'email': localStorage.getItem("email"),
+                            'id_no': localStorage.getItem("id"),
+                            'image': localStorage.getItem("img")}),
+        headers: {'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+                  'Access-Control-Allow-Headers': '*',
+                  'Access-Control-Allow-Origin': '*',
+                  'Access-Control-Allow-Methods': 'GET, POST, HEAD, OPTIONS'
+                 },
+        }).then(function (response){
+            return response.text();
+        }).then(function (text){
+            console.log(text);
+        }).catch(function (error){
+            console.error(error);
+        })
+    });
+    //localStorage.clear();
 }
 
-const image = localStorage.getItem("Image");
-document.getElementById("image").src = image;
+document.getElementsByName("image")[0].src=localStorage.getItem("image");
+document.getElementsByName("name_1")[0].innerHTML=localStorage.getItem("name");
+document.getElementsByName("org_number_1")[0].innerHTML=localStorage.getItem("id");
+document.getElementsByName("ph_number_1")[0].innerHTML=localStorage.getItem("contact");
+document.getElementsByName("email_1")[0].innerHTML=localStorage.getItem("email");
+
+//console.log(localStorage.getItem("img"));
 
 function goback(){
 
     window.location.href="front_end.html";
-}
-
-function register(){
-
-    var d = new Date();
-    d.setTime(d.getTime() + (2*60*1000));
-    var expires = "expires ="+ d.toUTCString();
-
-    document.cookie="name =" + document.getElementById("name_1").innerHTML + ";" + expires + ";path=/";
-    document.cookie="ID No =" + document.getElementById("org_number_1").innerHTML + ";" + expires + ";path=/";
-    document.cookie="Mobile No =" + document.getElementById('ph_number_1').innerHTML + ";" + expires + ";path=/";
-    document.cookie="Email =" + document.getElementById('email_1').innerHTML + ";" + expires + ";path=/";
-    document.cookie="Image =" + image + ";" + expires + ";path=/";
-    window.location.href="database_registration.php"
 }
