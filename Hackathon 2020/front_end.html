@@ -10,8 +10,8 @@
 </head>
 <body>
     <h2>Cafeteria registration</h2>
-    <form class="details">
-        Full name: <input type="text" placeholder="Please avoid any kind of prefixes" id="name" size=25><br><br>
+    <form class="details" method="POST">
+        Full name: <input type="text" placeholder="Please avoid any kind of prefixes" id="name" size=25 oninput="login()"><br><br>
         Organization:<div id="org"><input type="checkbox" id="cb1" onclick="check()">ID no: <input type="number" id="org_number" style="visibility: hidden"><br><br>
                      <input type="checkbox" id="cb2" onclick="check()">Mobile No: <input type="tel" id="ph_number" style="visibility: hidden" required></div><br><br>
         
