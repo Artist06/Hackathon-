@@ -4,22 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Preview</title>
-    <link rel="stylesheet" href="styles.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="preview_back_end.js"async></script>
+    <link rel="stylesheet" href="preview_styles.css">
 </head>
 <body>
     <h2>Please finalize your details</h2>
-    <form class="details">
+    <form id="details" action=database_registration.php method="post" class="form">
 
-        Full name: <strong id="name_1"></strong><br><br>
-        ID No:<strong id="org_number_1"></strong><br><br>
-        Mobile No:<strong id="ph_number_1"></strong><br><br>
+        Full name: <strong name="name_1" value=""></strong><br><br>
+        ID No:<strong name="org_number_1" value=""></strong><br><br>
+        Mobile No:<strong name="ph_number_1" value=""></strong><br><br>
         
-        E-mail: <strong id="email_1"></strong><br><br>
-        ID Card: <img src="" alt="preview" id="image" style="width: 100px; height: 100px;"><br><br>
-        
+        E-mail: <strong name="email_1"></strong><br><br>
+        ID Card: <img src="" alt="preview" name="image" style="width: 100px; height: 100px;" value=""><br><br>
+
+        <button id="go" style="background-color: whitesmoke">It's correct</button>
+        <button id="back" style="background-color: whitesmoke" onclick="goback()" type="button">Something's wrong</button>
     </form>
-    <button id="back" style="background-color: whitesmoke" onclick="goback()">Something's wrong</button>
-    <button id="go" style="background-color: whitesmoke" onclick="register()">It's correct</button>
-    <script src="preview_back_end.js" async></script>
+    <p id="response"></p>
 </body>
 </html>
