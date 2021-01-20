@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafteria details</title>
+    <link rel="stylesheet" href="styles.css">
+   
+        
+</head>
+<body>
+    <h2>Cafeteria registration</h2>
+    <form class="details" method="POST">
+        Full name: <input type="text" placeholder="Please avoid any kind of prefixes" id="name" size=30 onchange="login()"><br><br>
+        Organization:<div id="org"><input type="checkbox" id="cb1" onclick="check()">ID no: <input type="number" id="org_number" style="visibility: hidden"><br><br>
+                     <input type="checkbox" id="cb2" onclick="check()">Mobile No: <input type="tel" id="ph_number" style="visibility: hidden" required></div><br><br>
+        
+        E-mail: <input type="email" id="email" size=25><br><br>
+        Upload ID Card: <input type="file" accept=".jpeg , .png" id="img"><br><br>
+        
+    </form>
+    <button id="button" style="background-color: whitesmoke" onmouseover="hovar()" onclick="submit()" >Register</button>
+    <script src="back_end.js" async></script>
+    <p id="response"></p>
+</body>
+</html>
