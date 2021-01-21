@@ -45,6 +45,7 @@ function hovar(){
 
 function login(){
     //if number exists in database, change content of button from 'Register' to `Login`
+    document.getElementById("response").innerHTML="";
     const xhr=new XMLHttpRequest();
     xhr.onload=function(){
         if (this.responseText.includes("registered")){
