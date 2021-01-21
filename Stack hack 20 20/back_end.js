@@ -59,6 +59,14 @@ function login(){
             btn.style.color="black";
             flag=false;
         }
+        else{
+            document.getElementById("org_number").disabled=false;
+            document.getElementById("ph_number").disabled=false;
+            document.getElementById("email").disabled=false;
+            document.getElementById("img").disabled=false;
+            document.getElementById("button").innerText='Register';
+            flag=true;
+        }
     }
 
     xhr.open("POST", "database_fetch.php");
