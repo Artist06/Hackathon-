@@ -53,11 +53,15 @@ if ($conn->ping()) {
 } else {
     printf ("Error: %s\n", $conn->error);
 }
-// Creating a table Employees 
-/*$sql="CREATE TABLE IF NOT EXISTS `Employees`(Sl_no SMALLINT NOT NULL primary key AUTO_INCREMENT, Full_name varchar(30), 
-      ID_no SMALLINT, Contact varchar(10), Email varchar(30), registration_date DATE, 
-      ID_preview varchar(100))";
-$conn -> query($sql);*/
+// Creating a table employees 
+$sql="CREATE TABLE IF NOT EXISTS `employees`(`Sl_no` smallint(6) NOT NULL,
+  `Full_name` varchar(30) NOT NULL,
+  `ID_no` smallint(6) NOT NULL,
+  `Contact` varchar(10) NOT NULL,
+  `Email` varchar(30) NOT NULL,
+  `registration_date` date NOT NULL,
+  `ID_preview` varchar(100) NOT NULL)";
+$conn -> query($sql);
 
 // Inserting records
 $stmt = $conn->prepare("INSERT INTO `Employees` (Full_name, ID_no, Contact, Email, 
