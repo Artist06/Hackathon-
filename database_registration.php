@@ -5,13 +5,13 @@ header("Access-Control-Allow-Methods: GET, POST, HEAD, OPTIONS");
 header("Access-Control-Allow-Headers: *");
 
 // Server name is localhost 
-$servername = "localhost"; 
+$servername = "ec2-52-6-75-198.compute-1.amazonaws.com"; 
   
 // In my case, user name will be root 
-$username = "root"; 
+$username = "maoeizzpabkiws"; 
   
 // Password is empty 
-$password = ""; 
+$password = "5821762c1520d9fd66618ba143a7e510928a43bca83c4f3ef9b95cd13ba75415"; 
 
 //current date
 $date = date("Y-m-d");
@@ -41,7 +41,7 @@ if ($contentType === "application/json") {
 
 // Creating a connection 
 $conn = new mysqli($servername,  
-            $username, $password, "Employee_information"); 
+            $username, $password, "dd81qjvfuts0di"); 
   
 // Check connection 
 if ($conn->connect_error) { 
