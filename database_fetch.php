@@ -12,40 +12,46 @@ $username = "maoeizzpabkiws";
 // Password is .....
 $password = "5821762c1520d9fd66618ba143a7e510928a43bca83c4f3ef9b95cd13ba75415"; 
 
+$database = "dd81qjvfuts0di";
+
+
 foreach($_POST as $p){
     $name=$p;
 }
 
-$conn = new mysqli($servername,  
-            $username, $password, "dd81qjvfuts0di"); 
+$conn = pg_connect("host=".($servername)." port=5432 dbname=".($database)." user=".($username)." password=".($password));
 
 
-// Creating a table employees 
-$sql="CREATE TABLE IF NOT EXISTS `employees`(`Sl_no` smallint(6) NOT NULL,
-  `Full_name` varchar(30) NOT NULL,
-  `ID_no` smallint(6) NOT NULL,
-  `Contact` varchar(10) NOT NULL,
-  `Email` varchar(30) NOT NULL,
-  `registration_date` date NOT NULL,
-  `ID_preview` varchar(100) NOT NULL)";
-$conn -> query($sql);
-
-
-
-$sql = $conn->prepare("SELECT Sl_no,Full_name from employees where Full_name = ?");
+/*$sql = $conn->prepare("SELECT Sl_no,Full_name from employees where Full_name = ?");
 $sql->bind_param('s',$name);
 $sql->execute();
-$result = $sql->get_result();
+$result = $sql->get_result();*/
+
+$sql = "SELECT Sl_no,Full_name from employees where Full_name = ".($name);
+$result = pg_query($conn, $sql);
 
 
-if ($result->field_count > 0){
+/*if ($result->field_count > 0){
     while($row = $result->fetch_assoc()){
         echo ($name).", you are already registered, you're ".($row['Sl_no'])."th on the line";
     }
 }
 else{
     echo "sorry, you are not registered";
+}*/
+
+if(pg_num_fields($result)>0){
+  while($row = pg_fetch_array($result)) {
+    echo ($name).", you're already registered, you're ".$row['Sl_no']."th in the line";                         
+  }
 }
-$sql->close();
-$conn->close(); 
+else{
+    echo "sorry, you are not registered";
+}
+
+
+/*$sql->close();
+$conn->close();*/
+
+pg_close($conn);
 ?>
