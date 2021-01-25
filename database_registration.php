@@ -13,6 +13,8 @@ $username = "maoeizzpabkiws";
 // Password is empty 
 $password = "5821762c1520d9fd66618ba143a7e510928a43bca83c4f3ef9b95cd13ba75415"; 
 
+$database = "dd81qjvfuts0di";
+
 //current date
 $date = date("Y-m-d");
 
@@ -40,11 +42,11 @@ if ($contentType === "application/json") {
 }
 
 // Creating a connection 
-$conn = new mysqli($servername,  
-            $username, $password, "dd81qjvfuts0di"); 
+//$conn = new mysqli($servername,  $username, $password, "dd81qjvfuts0di"); 
+$conn = pg_connect("host=".($servername)." port=5432 dbname=".($database)." user=".($username)." password=".($password));
   
 // Check connection 
-if ($conn->connect_error) { 
+/*if ($conn->connect_error) { 
     die("Connection failure: " 
         . $conn->connect_error); 
 }  
@@ -52,7 +54,7 @@ if ($conn->ping()) {
     printf (($name).", you're registered.");
 } else {
     printf ("Error: %s\n", $conn->error);
-}
+}*/
 // Creating a table employees 
 $sql="CREATE TABLE IF NOT EXISTS `employees`(`Sl_no` smallint(6) NOT NULL,
   `Full_name` varchar(30) NOT NULL,
@@ -61,36 +63,51 @@ $sql="CREATE TABLE IF NOT EXISTS `employees`(`Sl_no` smallint(6) NOT NULL,
   `Email` varchar(30) NOT NULL,
   `registration_date` date NOT NULL,
   `ID_preview` varchar(100) NOT NULL)";
-$conn -> query($sql);
+
+pg_query($conn, $sql);
+//$conn -> query($sql);
+
 
 // Inserting records
-$stmt = $conn->prepare("INSERT INTO `Employees` (Full_name, ID_no, Contact, Email, 
+/*$stmt = $conn->prepare("INSERT INTO `Employees` (Full_name, ID_no, Contact, Email, 
                                     registration_date, ID_preview) 
                                     VALUES (?, ?, ?, ?, ?, ?)");
 $stmt->bind_param("siisss", $name, $org_number, $ph_number, $email, $date, $image);
-$stmt->execute();
+$stmt->execute();*/
 
-$sql = $conn->prepare("SELECT Sl_no from employees where Full_name = ?");
+$sql = "INSERT into `employees` (Full_name, ID_no, Contact, Email, registration_date, ID_preview) values ($name, $org_number, $ph_number, $email, $date, $image)" ;
+pg_query($conn, $sql);
+
+/*$sql = $conn->prepare("SELECT Sl_no from employees where Full_name = ?");
 $sql->bind_param('s',$name);
 $sql->execute();
-$result = $sql->get_result();
+$result = $sql->get_result();*/
+
+$sql = "SELECT Sl_no from employees where Full_name = ".($name);
+$result = pg_query($conn, $sql);
 
 
-if($stmt->execute()){
+/*if($stmt->execute()){
     echo ($name)." you are registered";
 }else{
     //echo "Something's wrong, please try again";
     $stmt->error;
-}
+}*/
 
-while($row = $result->fetch_assoc()){
+/*while($row = $result->fetch_assoc()){
     echo "You're ".$row['Sl_no']."th in the line";
+}*/
+
+while($row = pg_fetch_array($result)) {
+  echo ($name).", you're ".$row['Sl_no']."th in the line";                         
 }
 
 $content="";
   
 // Closing connection 
-$sql->close();
+/*$sql->close();
 $stmt->close();
-$conn->close(); 
+$conn->close();*/
+
+pg_close($conn);
 ?>
