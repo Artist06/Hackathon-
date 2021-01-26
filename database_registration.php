@@ -94,7 +94,7 @@ $sql->bind_param('s',$name);
 $sql->execute();
 $result = $sql->get_result();*/
 
-$sql = "SELECT Sl_no from employees where Full_name = ".($name);
+$sql = <<<EOF SELECT Sl_no from employees where Full_name=.$name;EOF;
 $result = pg_query($conn, $sql);
 
 
