@@ -43,7 +43,7 @@ if ($contentType === "application/json") {
 
 // Creating a connection 
 //$conn = new mysqli($servername,  $username, $password, "dd81qjvfuts0di"); 
-$conn = pg_connect("host=".($servername)." port=5432 dbname=".($database)." user=".($username)." password=".($password)." connect_timeout=5");
+$conn = pg_connect("host=".($servername)." port=5432 dbname=".($database)." user=".($username)." password=".($password)." sslmode=require");
   
 // Check connection 
 /*if ($conn->connect_error) { 
