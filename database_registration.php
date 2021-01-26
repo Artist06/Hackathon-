@@ -56,15 +56,21 @@ if ($conn->ping()) {
     printf ("Error: %s\n", $conn->error);
 }*/
 // Creating a table employees 
-$sql="CREATE TABLE IF NOT EXISTS `employees`(`Sl_no` smallint(6) NOT NULL,
-  `Full_name` varchar(30) NOT NULL,
-  `ID_no` smallint(6) NOT NULL,
-  `Contact` varchar(10) NOT NULL,
-  `Email` varchar(30) NOT NULL,
-  `registration_date` date NOT NULL,
-  `ID_preview` varchar(100) NOT NULL)";
+$sql=<<<EOF CREATE TABLE IF NOT EXISTS employees(Sl_no smallint(6) NOT NULL,
+  Full_name varchar(30) NOT NULL,
+  ID_no smallint(6) NOT NULL,
+  Contact varchar(10) NOT NULL,
+  Email varchar(30) NOT NULL,
+  registration_date date NOT NULL,
+  ID_preview varchar(100) NOT NULL);
+EOF;
 
 pg_query($conn, $sql);
+if(!pg_query($conn, $sql)){
+  echo "Something's wrong, please try again\n";
+} else{
+  echo "Table created";
+}
 //$conn -> query($sql);
 
 
@@ -75,7 +81,7 @@ pg_query($conn, $sql);
 $stmt->bind_param("siisss", $name, $org_number, $ph_number, $email, $date, $image);
 $stmt->execute();*/
 
-$sql = "INSERT into `employees` (Full_name, ID_no, Contact, Email, registration_date, ID_preview) values ($name, $org_number, $ph_number, $email, $date, $image)" ;
+$sql =<<<EOF INSERT into employees (Full_name, ID_no, Contact, Email, registration_date, ID_preview) values ($name, $org_number, $ph_number, $email, $date, $image) ;EOF;
 pg_query($conn, $sql);
 if(!pg_query($conn, $sql)){
   echo "Something's wrong, please try again\n";
