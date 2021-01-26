@@ -70,7 +70,7 @@ function login(){
         }
     }
 
-    xhr.open("POST", "database_fetch.php");
+    xhr.open("POST", "https://cafeteria-registration.herokuapp.com/database_fetch.php");
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.send("name="+document.getElementById("name").value);
 }
