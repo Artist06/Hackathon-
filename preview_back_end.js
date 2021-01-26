@@ -3,7 +3,7 @@ function submit(){
     const dForm = document.getElementById('details');          
     dForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        fetch("database_registration.php",{
+        fetch("https://cafeteria-registration.herokuapp.com/database_registration.php",{
         method: "post",
         body:JSON.stringify({'name': localStorage.getItem("name"),
                             'contact': localStorage.getItem("contact"),
