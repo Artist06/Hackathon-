@@ -44,11 +44,7 @@ if ($contentType === "application/json") {
 // Creating a connection 
 //$conn = new mysqli($servername,  $username, $password, "dd81qjvfuts0di"); 
 $conn = pg_connect("host=".($servername)." port=5432 dbname=".($database)." user=".($username)." password=".($password));
-if(!$conn){
-  echo "Error : Unable to open database\n";
-} else{
-  echo "Opened database successfully\n";
-}  
+  
 // Check connection 
 /*if ($conn->connect_error) { 
     die("Connection failure: " 
@@ -81,6 +77,11 @@ $stmt->execute();*/
 
 $sql = "INSERT into `employees` (Full_name, ID_no, Contact, Email, registration_date, ID_preview) values ($name, $org_number, $ph_number, $email, $date, $image)" ;
 pg_query($conn, $sql);
+if(!pg_query($conn, $sql)){
+  echo "Something's wrong, please try again\n";
+} else{
+  echo $name." you're inserted";
+}
 
 /*$sql = $conn->prepare("SELECT Sl_no from employees where Full_name = ?");
 $sql->bind_param('s',$name);
@@ -103,7 +104,7 @@ $result = pg_query($conn, $sql);
 }*/
 
 while($row = pg_fetch_array($result)) {
-  echo ($name).", you're ".$row['Sl_no']."th in the line";                         
+  echo "You're ".$row['Sl_no']."th in the line";                         
 }
 
 $content="";
