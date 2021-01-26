@@ -19,7 +19,7 @@ foreach($_POST as $p){
     $name=$p;
 }
 
-$conn = pg_connect("host=".($servername)." port=5432 dbname=".($database)." user=".($username)." password=".($password)." connect_timeout=5");
+$conn = pg_connect("host=".($servername)." port=5432 dbname=".($database)." user=".($username)." password=".($password)." sslmode=require");
 
 
 /*$sql = $conn->prepare("SELECT Sl_no,Full_name from employees where Full_name = ?");
